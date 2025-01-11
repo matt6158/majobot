@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+ --chart-1: 158.66 60.82% 51.96%;
+ --chart-2: 220 70% 50%;
+ --chart-3: 30 80% 55%;
+ --chart-4: 280 65% 60%;
+ --chart-5: 340 75% 55%;
+ --chart-6: 160 60% 45%;
+
+ --chart-blue: 228 100% 65%;
+ --chart-red: 0 100% 65%;
+}
+
 html,
 body {
  @apply m-0 scroll-smooth p-0 antialiased transition-[background-color] duration-300 motion-reduce:transition-none;
@@ -86,6 +98,10 @@ main > div {
  @apply w-full;
 }
 
+.lucide {
+ @apply stroke-[1.5];
+}
+
 .custom-bg::after {
  background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 1) 0px, transparent 50%), radial-gradient(at 97% 21%, hsla(256, 98%, 72%, 1) 0px, transparent 50%), radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%), radial-gradient(at 10% 29%, hsla(133, 96%, 67%, 1) 0px, transparent 50%), radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%), radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%), radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
  filter: blur(100px) saturate(150%);
@@ -96,7 +112,7 @@ canvas {
 }
 
 code {
- @apply bg-background-secondary inline-block rounded-md border border-neutral-800 px-2 py-1;
+ @apply bg-background-secondary inline rounded-md border border-neutral-800 px-2 py-1;
 }
 
 .from-black-10\/50 {
