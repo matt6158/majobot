@@ -1,10 +1,11 @@
 "use client";
 
 import { isNumeric } from "@majoexe/util/functions/util";
+import { CheckIcon, LoaderCircleIcon, MessageSquareDotIcon } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/Buttons";
-import { Icons, iconVariants } from "@/components/ui/Icons";
+import { iconVariants } from "@/components/ui/Icons";
 import { InputWithIcon } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
 
@@ -76,7 +77,7 @@ export const ChangeUserReputation = ({ userId, guildId, userReputation, classNam
   <form className={cn("flex flex-col items-start gap-2", className)} onSubmit={handleReputation} {...props}>
    <InputWithIcon
     type="number"
-    icon={<Icons.messageDot className={iconVariants({ variant: "normal" })} />}
+    icon={<MessageSquareDotIcon className={iconVariants({ variant: "normal" })} />}
     placeholder="User reputation"
     value={userRep}
     onChange={(e) => changeReputation(parseInt(e.target.value))}
@@ -90,11 +91,11 @@ export const ChangeUserReputation = ({ userId, guildId, userReputation, classNam
    <Button variant="primary" onClick={handleReputation} disabled={loading || error}>
     {loading ? (
      <>
-      <Icons.refresh className={iconVariants({ variant: "button", className: "animate-spin" })} /> Updating...
+      <LoaderCircleIcon className={iconVariants({ variant: "button", className: "animate-spin" })} /> Updating...
      </>
     ) : (
      <>
-      <Icons.Check className={iconVariants({ variant: "button" })} /> Update
+      <CheckIcon className={iconVariants({ variant: "button" })} /> Update
      </>
     )}
    </Button>
