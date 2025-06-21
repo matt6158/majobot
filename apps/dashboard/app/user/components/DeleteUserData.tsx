@@ -1,5 +1,6 @@
 "use client";
 
+import { LoaderCircleIcon, TrashIcon, XIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -56,7 +57,7 @@ export const DeleteUserData = ({ className, ...props }: React.ComponentProps<"di
    <Dialog>
     <DialogTrigger asChild>
      <Button variant="red" className="mt-4">
-      <Icons.Trash className={iconVariants({ variant: "button" })} /> Delete account
+      <TrashIcon className={iconVariants({ variant: "button" })} /> Delete account
      </Button>
     </DialogTrigger>
     <DialogContent className="max-w-lg">
@@ -72,19 +73,19 @@ export const DeleteUserData = ({ className, ...props }: React.ComponentProps<"di
       <Button variant="red" onClick={handleDelete} disabled={loading}>
        {loading ? (
         <>
-         <Icons.refresh className={iconVariants({ variant: "button", className: "animate-spin" })} />
+         <LoaderCircleIcon className={iconVariants({ variant: "button", className: "animate-spin" })} />
          Deleting your account...
         </>
        ) : (
         <>
-         <Icons.Trash className={iconVariants({ variant: "button" })} />
+         <TrashIcon className={iconVariants({ variant: "button" })} />
          Yes, delete my account
         </>
        )}
       </Button>
       <DialogClose asChild>
        <Button variant="secondary">
-        <Icons.close className={iconVariants({ variant: "button" })} />
+        <XIcon className={iconVariants({ variant: "button" })} />
         Cancel
        </Button>
       </DialogClose>

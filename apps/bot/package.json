@@ -13,22 +13,22 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@discordjs/rest": "2.5.0",
+    "@discordjs/rest": "2.5.1",
     "@iamtraction/google-translate": "2.0.1",
     "@majoexe/config": "workspace:*",
     "@majoexe/database": "workspace:*",
     "@majoexe/typescript-config": "workspace:*",
     "@majoexe/util": "workspace:*",
-    "@napi-rs/canvas": "0.1.70",
+    "@napi-rs/canvas": "0.1.71",
     "@observablehq/plot": "0.6.17",
     "@top-gg/sdk": "3.1.6",
     "chalk": "5.4.1",
-    "cheerio": "1.0.0",
+    "cheerio": "1.1.0",
     "coloras": "2.0.2",
     "d3": "7.9.0",
     "decode-gif": "1.0.1",
     "discord-giveaways": "6.0.1",
-    "discord.js": "14.19.3",
+    "discord.js": "14.20.0",
     "discordbotlist": "1.1.1",
     "figlet": "1.8.1",
     "gif-encoder-2": "1.0.5",
@@ -44,8 +44,8 @@
     "@types/jsdom": "21.1.7",
     "@types/ms": "2.1.0",
     "@types/qrcode": "1.5.5",
-    "@types/validator": "13.15.1",
-    "node-addon-api": "8.3.1",
+    "@types/validator": "13.15.2",
+    "node-addon-api": "8.4.0",
     "node-gyp": "11.2.0"
   },
   "engines": {
@@ -70,5 +70,5 @@
     "url": "https://github.com/igorkowalczyk/majo.exe/issues"
   },
   "homepage": "https://github.com/igorkowalczyk/majo.exe#readme",
-  "packageManager": "pnpm@10.11.0"
+  "packageManager": "pnpm@10.12.1"
 }
