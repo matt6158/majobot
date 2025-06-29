@@ -1,5 +1,6 @@
 "use client";
 
+import { LoaderCircleIcon, TrashIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -70,7 +71,7 @@ export const DeleteServerData = ({ serverId, className, ...props }: DeleteServer
    <Dialog>
     <DialogTrigger asChild>
      <Button variant="red" className="mt-4">
-      <Icons.Trash className={iconVariants({ variant: "button" })} /> Delete server data
+      <TrashIcon className={iconVariants({ variant: "button" })} /> Delete server data
      </Button>
     </DialogTrigger>
     <DialogContent className="max-w-lg">
@@ -94,19 +95,19 @@ export const DeleteServerData = ({ serverId, className, ...props }: DeleteServer
       <Button variant="red" onClick={handleDelete} disabled={loading || confirmationText.toLowerCase() !== "delete"}>
        {loading ? (
         <>
-         <Icons.refresh className={iconVariants({ variant: "button", className: "animate-spin" })} />
+         <LoaderCircleIcon className={iconVariants({ variant: "button", className: "animate-spin" })} />
          Deleting server data...
         </>
        ) : (
         <>
-         <Icons.Trash className={iconVariants({ variant: "button" })} />
+         <TrashIcon className={iconVariants({ variant: "button" })} />
          Yes, delete server data
         </>
        )}
       </Button>
       <DialogClose asChild>
        <Button variant="secondary">
-        <Icons.close className={iconVariants({ variant: "button" })} />
+        <XIcon className={iconVariants({ variant: "button" })} />
         Cancel
        </Button>
       </DialogClose>

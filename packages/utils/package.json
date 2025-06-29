@@ -33,11 +33,11 @@
     "@majoexe/config": "workspace:*",
     "@majoexe/database": "workspace:*",
     "@majoexe/typescript-config": "workspace:*",
-    "@napi-rs/canvas": "0.1.70",
+    "@napi-rs/canvas": "0.1.73",
     "@types/ms": "2.1.0",
     "chalk": "5.4.1",
-    "discord-api-types": "0.38.8",
-    "discord.js": "14.19.3",
+    "discord-api-types": "0.38.13",
+    "discord.js": "14.21.0",
     "ms": "2.1.3"
   },
   "engines": {
@@ -60,5 +60,5 @@
     "url": "https://github.com/igorkowalczyk/majo.exe/issues"
   },
   "homepage": "https://github.com/igorkowalczyk/majo.exe#readme",
-  "packageManager": "pnpm@10.11.0"
+  "packageManager": "pnpm@10.12.4"
 }

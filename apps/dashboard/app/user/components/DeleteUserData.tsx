@@ -1,5 +1,6 @@
 "use client";
 
+import { LoaderCircleIcon, TrashIcon, XIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -56,7 +57,7 @@ export const DeleteUserData = ({ className, ...props }: React.ComponentProps<"di
    <Dialog>
     <DialogTrigger asChild>
      <Button variant="red" className="mt-4">
-      <Icons.Trash className={iconVariants({ variant: "button" })} /> Delete account
+      <TrashIcon className={iconVariants({ variant: "button" })} /> Delete account
      </Button>
     </DialogTrigger>
     <DialogContent className="max-w-lg">
@@ -65,26 +66,28 @@ export const DeleteUserData = ({ className, ...props }: React.ComponentProps<"di
        <Icons.warning className={iconVariants({ variant: "large", className: "stroke-2!" })} />
        Delete account
       </DialogTitle>
-      <DialogDescription>Deleting your account will delete all your data from our servers. This action is irreversible. Are you sure you want to delete your account?</DialogDescription>
+      <DialogDescription>
+       Deleting your account will delete all your data from our servers. This action is irreversible. Are you sure you want to delete your account?
+      </DialogDescription>
      </DialogHeader>
 
      <div className="mt-4 flex justify-between gap-2">
       <Button variant="red" onClick={handleDelete} disabled={loading}>
        {loading ? (
         <>
-         <Icons.refresh className={iconVariants({ variant: "button", className: "animate-spin" })} />
+         <LoaderCircleIcon className={iconVariants({ variant: "button", className: "animate-spin" })} />
          Deleting your account...
         </>
        ) : (
         <>
-         <Icons.Trash className={iconVariants({ variant: "button" })} />
+         <TrashIcon className={iconVariants({ variant: "button" })} />
          Yes, delete my account
         </>
        )}
       </Button>
       <DialogClose asChild>
        <Button variant="secondary">
-        <Icons.close className={iconVariants({ variant: "button" })} />
+        <XIcon className={iconVariants({ variant: "button" })} />
         Cancel
        </Button>
       </DialogClose>

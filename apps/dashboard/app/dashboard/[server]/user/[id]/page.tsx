@@ -3,6 +3,7 @@ import { getGuildFromMemberGuilds, getGuild } from "@majoexe/util/functions/guil
 import { getDiscordUser, getFlags } from "@majoexe/util/functions/user";
 import { formatNumber } from "@majoexe/util/functions/util";
 import { getSession } from "lib/session";
+import { ExternalLinkIcon, MessageSquareWarningIcon, ThumbsUpIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -167,8 +168,24 @@ export default async function User(props: { params: Promise<{ server: string; id
       <div className="ml-[-16px] mt-[-20px] box-content flex w-full items-center rounded-full">
        <Tooltip content="Click to see full size">
         <Link href={`/api/user/avatar/${discordUser.id}`} target="_blank" className="relative size-24 shrink-0">
-         <Image quality={100} src={`/api/user/avatar/${discordUser.id}`} alt={`${discordUser.global_name || discordUser.username} Avatar`} width={96} height={96} className="rounded-full border-4! border-solid! border-background-navbar! duration-200 hover:opacity-75" />
-         {discordUser.avatar_decoration_data ? <Image quality={100} src={`/api/user/avatar-decoration/${discordUser.id}`} alt={`${discordUser.global_name || discordUser.username} Avatar decoration`} width={96} height={96} className="absolute left-0 top-0 rounded-full" /> : null}
+         <Image
+          quality={100}
+          src={`/api/user/avatar/${discordUser.id}`}
+          alt={`${discordUser.global_name || discordUser.username} Avatar`}
+          width={96}
+          height={96}
+          className="rounded-full border-4! border-solid! border-background-navbar! duration-200 hover:opacity-75"
+         />
+         {discordUser.avatar_decoration_data ? (
+          <Image
+           quality={100}
+           src={`/api/user/avatar-decoration/${discordUser.id}`}
+           alt={`${discordUser.global_name || discordUser.username} Avatar decoration`}
+           width={96}
+           height={96}
+           className="absolute left-0 top-0 rounded-full"
+          />
+         ) : null}
         </Link>
        </Tooltip>
 
@@ -207,7 +224,7 @@ export default async function User(props: { params: Promise<{ server: string; id
       </div>
       <div className="mb-[-14px] hidden w-full items-end justify-end lg:flex">
        <Link href={`https://discord.com/users/${user.discordId}`} className={cn(buttonVariants({ variant: "primary" }))} target="_blank">
-        <Icons.ExternalLink className={iconVariants({ variant: "button" })} /> Discord profile
+        <ExternalLinkIcon className={iconVariants({ variant: "button" })} /> Discord profile
        </Link>
       </div>
      </div>
@@ -239,7 +256,7 @@ export default async function User(props: { params: Promise<{ server: string; id
    </div>
    <Block className="mt-4">
     <Header className={cn(headerVariants({ variant: "h2" }))}>
-     <Icons.MessageSquareWarning className={iconVariants({ variant: "large", className: "stroke-2!" })} />
+     <MessageSquareWarningIcon className={iconVariants({ variant: "large", className: "stroke-2!" })} />
      Warns
     </Header>
     <p className="mb-4 text-left opacity-70">You can view all warns given to this user in this server. You can also manage them by deleting them.</p>
@@ -254,7 +271,7 @@ export default async function User(props: { params: Promise<{ server: string; id
    </Block>
    <Block className="mt-4">
     <Header className={cn(headerVariants({ variant: "h2" }))}>
-     <Icons.like className={iconVariants({ variant: "large", className: "stroke-2!" })} />
+     <ThumbsUpIcon className={iconVariants({ variant: "large", className: "stroke-2!" })} />
      Reputation
     </Header>
     <p className="mt-2 text-white/70">Change the reputation of this user in this server, set it to 0 to remove it.</p>

@@ -1,10 +1,11 @@
 "use client";
 
 import { DataEntry } from "@majoexe/util/functions/util";
+import { CalendarRangeIcon, ChevronsUpDownIcon, DownloadIcon } from "lucide-react";
 import React, { useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { Button } from "@/components/ui/Buttons";
-import { ChartContainer, ChartConfig, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/Chart";
+import { ChartContainer, ChartConfig, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, type CustomTooltipProps } from "@/components/ui/Chart";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/DropdownMenu";
 import Header, { headerVariants } from "@/components/ui/Headers";
 import { Icons, iconVariants } from "@/components/ui/Icons";
@@ -38,8 +39,15 @@ export const StatsChart = ({ title, data, CSVData, fileName, categories, chartCo
 
  if (dateRange && dateRange.days !== Infinity) {
   const cutoffDate = new Date();
+  cutoffDate.setHours(0, 0, 0, 0);
   cutoffDate.setDate(cutoffDate.getDate() - dateRange.days);
-  filteredData = data.filter((item) => item.date && new Date(item.date) >= cutoffDate) as typeof filteredData;
+
+  filteredData = data.filter((item) => {
+   if (!item.date) return false;
+   const itemDate = new Date(item.date);
+   itemDate.setHours(0, 0, 0, 0);
+   return itemDate >= cutoffDate;
+  }) as typeof filteredData;
  }
 
  const start = filteredData[0]?.date;
@@ -88,9 +96,9 @@ export const StatsChart = ({ title, data, CSVData, fileName, categories, chartCo
       <DropdownMenu>
        <DropdownMenuTrigger asChild>
         <Button variant="select">
-         <Icons.Download className={iconVariants({ variant: "small" })} />
+         <DownloadIcon className={iconVariants({ variant: "small" })} />
          Export
-         <Icons.ChevronsUpDown
+         <ChevronsUpDownIcon
           className={iconVariants({
            variant: "small",
            className: "text-neutral-400 duration-200 motion-reduce:transition-none",
@@ -109,11 +117,14 @@ export const StatsChart = ({ title, data, CSVData, fileName, categories, chartCo
       </DropdownMenu>
      )}
      {showDateRange && (
-      <Select value={dateRange?.days.toString() ?? dateRanges[0].days.toString()} onValueChange={(value) => setDateRange(dateRanges.find((range) => range.days.toString() === value) || dateRanges[0])}>
+      <Select
+       value={dateRange?.days.toString() ?? dateRanges[0].days.toString()}
+       onValueChange={(value) => setDateRange(dateRanges.find((range) => range.days.toString() === value) || dateRanges[0])}
+      >
        <SelectTrigger>
         <SelectValue placeholder="Select date range">
          <span className="flex items-center gap-2">
-          <Icons.CalendarRange className={iconVariants({ variant: "small" })} />
+          <CalendarRangeIcon className={iconVariants({ variant: "small" })} />
           <span>Date Range: {dateRange?.label ?? "N/A"}</span>
          </span>
         </SelectValue>
@@ -161,8 +172,9 @@ export const StatsChart = ({ title, data, CSVData, fileName, categories, chartCo
      />
      <ChartTooltip
       cursor={true}
-      content={
+      content={(props: CustomTooltipProps) => (
        <ChartTooltipContent
+        {...props}
         labelFormatter={(value) => {
          return new Date(value).toLocaleDateString("en-US", {
           month: "short",
@@ -171,13 +183,30 @@ export const StatsChart = ({ title, data, CSVData, fileName, categories, chartCo
         }}
         indicator="line"
        />
-      }
+      )}
      />
 
      {categories.map((category) => (
-      <Area key={category} dataKey={category} type="monotoneX" fill={`url(#fill-${category.toLowerCase().replace(/ /g, "")})`} stroke={chartConfig?.[category as keyof typeof chartConfig]?.color || "hsl(var(--chart-5))"} stackId={`stack-${category}`} />
+      <Area
+       key={category}
+       dataKey={category}
+       connectNulls={true}
+       fill={`url(#fill-${category.toLowerCase().replace(/ /g, "")})`}
+       stroke={chartConfig?.[category as keyof typeof chartConfig]?.color || "hsl(var(--chart-5))"}
+       strokeWidth={2}
+      />
      ))}
-     <ChartLegend content={<ChartLegendContent />} />
+     <ChartLegend
+      content={
+       <ChartLegendContent
+        payload={categories.map((category) => ({
+         value: category,
+         type: "line",
+         color: chartConfig?.[category as keyof typeof chartConfig]?.color || "hsl(var(--chart-5))",
+        }))}
+       />
+      }
+     />
     </AreaChart>
    </ChartContainer>
   </>

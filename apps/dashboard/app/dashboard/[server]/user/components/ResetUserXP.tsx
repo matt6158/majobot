@@ -1,5 +1,6 @@
 "use client";
 
+import { LoaderCircleIcon, TrashIcon, XIcon } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/Buttons";
@@ -65,7 +66,7 @@ export const ResetUserXP = ({ userId, guildId, className, ...props }: ResetUserX
    <Dialog open={isOpen} onOpenChange={setIsOpen}>
     <DialogTrigger asChild>
      <Button variant="red" className="mt-4 w-fit" onClick={() => setIsOpen(true)}>
-      <Icons.Trash className={iconVariants({ variant: "button" })} />
+      <TrashIcon className={iconVariants({ variant: "button" })} />
       Reset XP
      </Button>
     </DialogTrigger>
@@ -75,26 +76,29 @@ export const ResetUserXP = ({ userId, guildId, className, ...props }: ResetUserX
        <Icons.warning className={iconVariants({ variant: "large", className: "mr-2 stroke-2!" })} />
        Reset XP
       </DialogTitle>
-      <DialogDescription>Resetting XP will reset the XP of this user in this server. This action is irreversible and will reset the XP of this user to 0. Are you sure you want to reset the XP of this user?</DialogDescription>
+      <DialogDescription>
+       Resetting XP will reset the XP of this user in this server. This action is irreversible and will reset the XP of this user to 0. Are you sure you want to reset the XP of
+       this user?
+      </DialogDescription>
      </DialogHeader>
 
      <div className="mt-4 flex justify-between gap-2">
       <Button variant="red" onClick={handleReset} disabled={loading}>
        {loading ? (
         <>
-         <Icons.refresh className={iconVariants({ variant: "button", className: "animate-spin" })} />
+         <LoaderCircleIcon className={iconVariants({ variant: "button", className: "animate-spin" })} />
          Resetting...
         </>
        ) : (
         <>
-         <Icons.Trash className={iconVariants({ variant: "button" })} />
+         <TrashIcon className={iconVariants({ variant: "button" })} />
          Yes, reset XP
         </>
        )}
       </Button>
       <DialogClose asChild>
        <Button variant="secondary">
-        <Icons.close className={iconVariants({ variant: "button" })} />
+        <XIcon className={iconVariants({ variant: "button" })} />
         Cancel
        </Button>
       </DialogClose>
