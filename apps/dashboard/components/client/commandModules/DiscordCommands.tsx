@@ -1,8 +1,9 @@
 "use client";
 import type { CommandCategories } from "@majoexe/database/types";
+import { CheckIcon, LoaderCircleIcon, SearchIcon, XIcon } from "lucide-react";
 import React, { useEffect, useState, useMemo } from "react";
 import Header, { headerVariants } from "@/components/ui/Headers";
-import { Icons, iconVariants } from "@/components/ui/Icons";
+import { iconVariants } from "@/components/ui/Icons";
 import { InputWithIcon } from "@/components/ui/Input";
 import { Skeleton } from "@/components/ui/Skeletons";
 import { Tooltip } from "@/components/ui/Tooltip";
@@ -20,7 +21,9 @@ export const DiscordCommands = ({ commands, categories, className, ...props }: D
  const [mounted, setMounted] = useState(false);
 
  const filteredCommands = useMemo(() => {
-  return commands.filter((command) => command.name.toLowerCase().includes(search.toLowerCase() || "") && filteredCategories.some((category) => category.name === command.categoryName));
+  return commands.filter(
+   (command) => command.name.toLowerCase().includes(search.toLowerCase() || "") && filteredCategories.some((category) => category.name === command.categoryName)
+  );
  }, [search, commands, filteredCategories]);
 
  useEffect(() => {
@@ -54,7 +57,7 @@ export const DiscordCommands = ({ commands, categories, className, ...props }: D
 
     <div className="mt-8 flex flex-col items-center justify-center gap-2">
      <Header className={cn(headerVariants({ variant: "h3", alignment: "center" }))}>
-      <Icons.refresh className={iconVariants({ variant: "large", className: "animate-spin" })} />
+      <LoaderCircleIcon className={iconVariants({ variant: "large", className: "animate-spin" })} />
       Loading commands...
      </Header>
      <p className="text-center text-white/50">This may take a few seconds.</p>
@@ -65,7 +68,13 @@ export const DiscordCommands = ({ commands, categories, className, ...props }: D
 
  return (
   <div className={cn(className)} {...props}>
-   <InputWithIcon placeholder="Search commands..." value={search} onChange={(e) => setSearch(e.target.value)} icon={<Icons.Search className={iconVariants({ variant: "normal", className: "text-white/50" })} />} className="w-full max-w-none!" />
+   <InputWithIcon
+    placeholder="Search commands..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    icon={<SearchIcon className={iconVariants({ variant: "normal", className: "text-white/50" })} />}
+    className="w-full max-w-none!"
+   />
    <div className="mt-4 flex flex-wrap gap-2">
     {categories.map((category) => (
      <div
@@ -85,7 +94,7 @@ export const DiscordCommands = ({ commands, categories, className, ...props }: D
       }}
      >
       <div className="relative size-4">
-       <Icons.Check
+       <CheckIcon
         className={iconVariants({
          variant: "normal",
          className: cn("absolute inset-0 size-full duration-200", {
@@ -94,7 +103,7 @@ export const DiscordCommands = ({ commands, categories, className, ...props }: D
          }),
         })}
        />
-       <Icons.close
+       <XIcon
         className={iconVariants({
          variant: "normal",
          className: cn("absolute inset-0 size-full duration-200", {
@@ -111,7 +120,7 @@ export const DiscordCommands = ({ commands, categories, className, ...props }: D
    {filteredCommands.length === 0 ? (
     <div className="mt-8 flex flex-col items-center justify-center gap-2">
      <Header className={cn(headerVariants({ variant: "h3", alignment: "center" }))}>
-      <Icons.close className={iconVariants({ variant: "large", className: "text-red-400" })} />
+      <XIcon className={iconVariants({ variant: "large", className: "text-red-400" })} />
       No commands found.
      </Header>
      <p className="text-center text-white/50">Try searching for something else or change the categories.</p>
