@@ -1,6 +1,19 @@
 "use client";
 
 import { APIAutoModerationRule, APIGuildChannel, GuildChannelType } from "discord-api-types/v10";
+import {
+ ArrowDownIcon,
+ AtSignIcon,
+ CheckIcon,
+ HashIcon,
+ InfoIcon,
+ LoaderCircleIcon,
+ MoveVerticalIcon,
+ ShieldMinusIcon,
+ ShieldPlusIcon,
+ ShieldXIcon,
+ UsersIcon,
+} from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import DeleteMessage from "./DeleteMessage";
@@ -92,7 +105,7 @@ export const AntiMention = ({ serverId, enabled, existingActions, existingExempt
  return (
   <div>
    <Header className={cn(headerVariants({ variant: "h2", margin: "normal" }))}>
-    <Icons.mention className={iconVariants({ variant: "large", className: "stroke-2!" })} />
+    <AtSignIcon className={iconVariants({ variant: "large", className: "stroke-2!" })} />
     Anti-Mention <Switch checked={isEnabled} onCheckedChange={save} disabled={loading} />
    </Header>
    <p className="mb-4 text-left">
@@ -110,7 +123,7 @@ export const AntiMention = ({ serverId, enabled, existingActions, existingExempt
    >
     <div className="my-4 flex flex-row flex-wrap items-start whitespace-nowrap rounded-lg border border-accent-primary bg-accent-primary/10 p-4">
      <span className="mr-1 flex flex-row items-center whitespace-nowrap font-bold">
-      <Icons.Info className={iconVariants({ variant: "normal", className: "stroke-accent-primary mr-1" })} />
+      <InfoIcon className={iconVariants({ variant: "normal", className: "stroke-accent-primary mr-1" })} />
       Note:
      </span>
      <span className="whitespace-normal">You have to enable this rule to change its settings!</span>
@@ -132,7 +145,7 @@ export const AntiMention = ({ serverId, enabled, existingActions, existingExempt
      <div className="flex w-fit flex-row flex-wrap items-center gap-2 text-center font-bold">
       <Tooltip content="Ignore certain roles from triggering the rule.">
        <span className="flex cursor-help items-center gap-2">
-        <Icons.Users className={iconVariants({ variant: "normal", className: "stroke-accent-primary" })} />
+        <UsersIcon className={iconVariants({ variant: "normal", className: "stroke-accent-primary" })} />
         Ignore Roles:
        </span>
       </Tooltip>
@@ -142,7 +155,7 @@ export const AntiMention = ({ serverId, enabled, existingActions, existingExempt
      <div className="mt-2 flex w-fit flex-row flex-wrap items-center gap-2 text-center font-bold">
       <Tooltip content="Ignore certain channels from being moderated.">
        <span className="flex cursor-help items-center gap-2">
-        <Icons.Hash className={iconVariants({ variant: "normal", className: "stroke-accent-primary" })} />
+        <HashIcon className={iconVariants({ variant: "normal", className: "stroke-accent-primary" })} />
         Ignore Channels:
        </span>
       </Tooltip>
@@ -154,11 +167,11 @@ export const AntiMention = ({ serverId, enabled, existingActions, existingExempt
      </p>
     </Block>
 
-    <Icons.MoveVertical className={cn(iconVariants({ variant: "large" }), "mx-6 mb-4 opacity-50")} />
+    <MoveVerticalIcon className={cn(iconVariants({ variant: "large" }), "mx-6 mb-4 opacity-50")} />
 
     <Block className="mb-4 py-3!">
      <Header className={cn(headerVariants({ variant: "h3" }))}>
-      <Icons.ShieldMinus className={iconVariants({ variant: "large" })} /> Actions:
+      <ShieldMinusIcon className={iconVariants({ variant: "large" })} /> Actions:
      </Header>
      <span className="mb-4 font-normal">What should I do when a member triggers the rule?</span>
 
@@ -177,28 +190,33 @@ export const AntiMention = ({ serverId, enabled, existingActions, existingExempt
      )}
     </Block>
 
-    <Icons.ArrowDown className={cn(iconVariants({ variant: "large" }), "mx-6 mb-4 opacity-50")} />
+    <ArrowDownIcon className={cn(iconVariants({ variant: "large" }), "mx-6 mb-4 opacity-50")} />
 
     <Block className="mb-4 py-3!">
      <Header className={cn(headerVariants({ variant: "h3" }))}>
-      <Icons.ShieldX className={iconVariants({ variant: "large" })} /> Limits:
+      <ShieldXIcon className={iconVariants({ variant: "large" })} /> Limits:
      </Header>
 
      <div className="my-2 flex flex-row flex-wrap gap-2">
       <Tooltip content="Limits how many unique mentions (user & roles) are allowed in a single message.">
        <span className="flex w-fit cursor-help items-center gap-2 font-bold">
-        <Icons.AtSign className={iconVariants({ variant: "normal", className: "stroke-red-400" })} />
+        <AtSignIcon className={iconVariants({ variant: "normal", className: "stroke-red-400" })} />
         How many mentions are allowed in a single message?
        </span>
       </Tooltip>
 
-      <MentionLimitSelect selectedChoice={limit} setSelectedChoice={setLimit} triggerMetadata={{ mentionTotalLimit: limit, mentionRaidProtectionEnabled: true }} setTriggerMetadata={() => {}} />
+      <MentionLimitSelect
+       selectedChoice={limit}
+       setSelectedChoice={setLimit}
+       triggerMetadata={{ mentionTotalLimit: limit, mentionRaidProtectionEnabled: true }}
+       setTriggerMetadata={() => {}}
+      />
      </div>
 
      <div className="my-2 flex flex-row flex-wrap gap-2">
       <Tooltip content="Allow automatic detection of mention raids in the server.">
        <span className="flex w-fit cursor-help items-center gap-2 font-bold">
-        <Icons.ShieldPlus className={iconVariants({ variant: "normal", className: "stroke-red-400" })} />
+        <ShieldPlusIcon className={iconVariants({ variant: "normal", className: "stroke-red-400" })} />
         Enable Mention Raid Protection
        </span>
       </Tooltip>
@@ -210,12 +228,12 @@ export const AntiMention = ({ serverId, enabled, existingActions, existingExempt
     <Button variant="primary" className="mt-4" onClick={() => save(false)} disabled={!isEnabled || loading || !actions || actions.length === 0}>
      {loading ? (
       <>
-       <Icons.refresh className={iconVariants({ variant: "button", className: "animate-spin" })} />
+       <LoaderCircleIcon className={iconVariants({ variant: "button", className: "animate-spin" })} />
        Saving...
       </>
      ) : (
       <>
-       <Icons.Check className={iconVariants({ variant: "button" })} />
+       <CheckIcon className={iconVariants({ variant: "button" })} />
        Save
       </>
      )}

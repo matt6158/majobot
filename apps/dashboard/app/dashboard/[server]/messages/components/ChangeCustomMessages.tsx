@@ -3,6 +3,7 @@
 import { globalConfig } from "@majoexe/config";
 import { toHTML } from "@odiffey/discord-markdown";
 import { Snowflake } from "discord-api-types/globals";
+import { CheckIcon, HashIcon, InfoIcon, LoaderCircleIcon, TextIcon, TypeIcon } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { Block } from "@/components/ui/Block";
@@ -28,7 +29,20 @@ export interface ChangeCustomMessagesProps extends React.ComponentPropsWithRef<"
  replacedData: { user: string; guild: string };
 }
 
-export const ChangeCustomMessages = ({ ref, serverId, enabled, title, description, existingChannel, allChannels, type, defaultMessages, replacedData, className, ...props }: ChangeCustomMessagesProps) => {
+export const ChangeCustomMessages = ({
+ ref,
+ serverId,
+ enabled,
+ title,
+ description,
+ existingChannel,
+ allChannels,
+ type,
+ defaultMessages,
+ replacedData,
+ className,
+ ...props
+}: ChangeCustomMessagesProps) => {
  const [isEnabled, setIsEnabled] = useState(enabled ?? false);
  const [loading, setLoading] = useState(false);
  const [newTitle, setNewTitle] = useState(title);
@@ -114,7 +128,7 @@ export const ChangeCustomMessages = ({ ref, serverId, enabled, title, descriptio
     <div className="my-4 flex flex-row flex-wrap gap-2">
      <Tooltip content="Enable or disable welcome messages.">
       <span className="flex w-fit cursor-help items-center gap-2 font-bold">
-       <Icons.Check className={iconVariants({ variant: "normal" })} />
+       <CheckIcon className={iconVariants({ variant: "normal" })} />
        Enabled:
       </span>
      </Tooltip>
@@ -132,7 +146,7 @@ export const ChangeCustomMessages = ({ ref, serverId, enabled, title, descriptio
     >
      <div className="my-4 flex flex-row flex-wrap items-start overflow-hidden whitespace-nowrap rounded-lg border border-accent-primary bg-accent-primary/10 p-4 duration-200 will-change-transform">
       <span className="mr-1 flex flex-row items-center whitespace-nowrap font-bold">
-       <Icons.Info className={iconVariants({ variant: "normal", className: "stroke-accent-primary mr-1" })} />
+       <InfoIcon className={iconVariants({ variant: "normal", className: "stroke-accent-primary mr-1" })} />
        Note:
       </span>
       <span className="whitespace-normal">You have to enable this message to configure it.</span>
@@ -154,7 +168,7 @@ export const ChangeCustomMessages = ({ ref, serverId, enabled, title, descriptio
        <div className="mb-2 flex w-fit flex-col flex-wrap gap-2">
         <Tooltip content="Where should the welcome message be sent?">
          <span className="flex w-fit cursor-help items-center gap-2 font-bold">
-          <Icons.Hash className={iconVariants({ variant: "normal" })} />
+          <HashIcon className={iconVariants({ variant: "normal" })} />
           Channel:
          </span>
         </Tooltip>
@@ -187,26 +201,39 @@ export const ChangeCustomMessages = ({ ref, serverId, enabled, title, descriptio
        <div className="my-2 flex flex-col flex-wrap gap-2">
         <Tooltip content="The title of the welcome message.">
          <span className="flex w-fit cursor-help items-center gap-2 font-bold">
-          <Icons.Type className={iconVariants({ variant: "normal" })} />
+          <TypeIcon className={iconVariants({ variant: "normal" })} />
           Title:
          </span>
         </Tooltip>
-        <Input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} disabled={!isEnabled || loading || !messageChannel} placeholder={defaultMessages.title} className="max-w-96! font-normal" />
+        <Input
+         type="text"
+         value={newTitle}
+         onChange={(e) => setNewTitle(e.target.value)}
+         disabled={!isEnabled || loading || !messageChannel}
+         placeholder={defaultMessages.title}
+         className="max-w-96! font-normal"
+        />
        </div>
 
        <div className="my-2 flex flex-col flex-wrap gap-2">
         <Tooltip content="The description of the welcome message.">
          <span className="flex w-fit cursor-help items-center gap-2 font-bold">
-          <Icons.Text className={iconVariants({ variant: "normal" })} />
+          <TextIcon className={iconVariants({ variant: "normal" })} />
           Description:
          </span>
         </Tooltip>
-        <Textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} disabled={!isEnabled || loading || !messageChannel} placeholder={defaultMessages.description} className="max-w-96! font-normal" />
+        <Textarea
+         value={newDescription}
+         onChange={(e) => setNewDescription(e.target.value)}
+         disabled={!isEnabled || loading || !messageChannel}
+         placeholder={defaultMessages.description}
+         className="max-w-96! font-normal"
+        />
        </div>
 
        <div className="my-4 w-fit whitespace-nowrap rounded-lg border border-accent-primary bg-accent-primary/10 p-4">
         <div className="mr-1 flex flex-row items-center whitespace-nowrap font-bold">
-         <Icons.Info className={iconVariants({ variant: "normal", className: "stroke-accent-primary mr-1" })} />
+         <InfoIcon className={iconVariants({ variant: "normal", className: "stroke-accent-primary mr-1" })} />
          Note:
         </div>
         <div className="mt-1 whitespace-normal">
@@ -224,7 +251,11 @@ export const ChangeCustomMessages = ({ ref, serverId, enabled, title, descriptio
        </span> */}
        <Embed color={globalConfig.defaultColor}>
         <EmbedTitle>{(newTitle || defaultMessages.title).replaceAll(/{user}/g, replacedData.user).replaceAll(/{guild}/g, replacedData.guild)}</EmbedTitle>
-        <EmbedDescription dangerouslySetInnerHTML={{ __html: toHTML((newDescription?.trim() || defaultMessages.description).replaceAll(/{user}/g, replacedData.user).replaceAll(/{guild}/g, replacedData.guild || "")) }} />
+        <EmbedDescription
+         dangerouslySetInnerHTML={{
+          __html: toHTML((newDescription?.trim() || defaultMessages.description).replaceAll(/{user}/g, replacedData.user).replaceAll(/{guild}/g, replacedData.guild || "")),
+         }}
+        />
         <EmbedImage alt="Majo.exe logo" />
        </Embed>
       </div>
@@ -233,12 +264,12 @@ export const ChangeCustomMessages = ({ ref, serverId, enabled, title, descriptio
     <Button variant="primary" className="mt-4" onClick={() => save(false)} disabled={!messageChannel || loading}>
      {loading ? (
       <>
-       <Icons.refresh className={iconVariants({ variant: "button", className: "animate-spin" })} />
+       <LoaderCircleIcon className={iconVariants({ variant: "button", className: "animate-spin" })} />
        Saving...
       </>
      ) : (
       <>
-       <Icons.Check className={iconVariants({ variant: "button" })} />
+       <CheckIcon className={iconVariants({ variant: "button" })} />
        Save
       </>
      )}

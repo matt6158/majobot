@@ -19,7 +19,7 @@
  },
  "dependencies": {
   "@majoexe/typescript-config": "workspace:*",
-  "discord-api-types": "0.38.8"
+  "discord-api-types": "0.38.15"
  },
  "engines": {
   "node": ">=20"
@@ -38,5 +38,5 @@
   "url": "https://github.com/igorkowalczyk/majo.exe/issues"
  },
  "homepage": "https://github.com/igorkowalczyk/majo.exe#readme",
- "packageManager": "pnpm@10.11.0"
+ "packageManager": "pnpm@10.13.1"
 }

@@ -1,10 +1,11 @@
 import { getMemberGuilds, isBotInServer } from "@majoexe/util/functions/guild";
 import { getSession } from "lib/session";
+import { HomeIcon, InfoIcon, NavigationIcon, PlusIcon, TriangleAlertIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { buttonVariants } from "@/components/ui/Buttons";
 import Header, { headerVariants } from "@/components/ui/Headers";
-import { Icons, iconVariants } from "@/components/ui/Icons";
+import { iconVariants } from "@/components/ui/Icons";
 import Image from "@/components/ui/Image";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +34,7 @@ export default async function Page() {
       <>
        <div>
         <Header className={cn(headerVariants({ variant: "h1", alignment: "center", margin: "normal" }))}>
-         <Icons.Navigation className={iconVariants({ variant: "extraLarge" })} />
+         <NavigationIcon className={iconVariants({ variant: "extraLarge" })} />
          Choose a server
         </Header>
         <p className="mb-4 text-center text-base text-white/50 md:text-xl">Select a server to manage, or add the bot to a new server.</p>
@@ -41,16 +42,27 @@ export default async function Page() {
        {servers.map((server) => (
         <div key={server.id}>
          <div className="hidden flex-row items-center justify-start gap-3 sm:flex">
-          {server.icon ? <Image src={`https://cdn.discordapp.com/icons/${server.id}/${server.icon}.${server.icon.startsWith("a_") ? "gif" : "png"}`} alt={server.name} quality={95} width={64} height={64} className="size-16 shrink-0 rounded-full" /> : <div className="size-16 shrink-0 rounded-full bg-button-secondary" />}
+          {server.icon ? (
+           <Image
+            src={`https://cdn.discordapp.com/icons/${server.id}/${server.icon}.${server.icon.startsWith("a_") ? "gif" : "png"}`}
+            alt={server.name}
+            quality={95}
+            width={64}
+            height={64}
+            className="size-16 shrink-0 rounded-full"
+           />
+          ) : (
+           <div className="size-16 shrink-0 rounded-full bg-button-secondary" />
+          )}
           <Header className={cn(headerVariants({ variant: "h3" }))}>{server.name}</Header>
           <>
            {server.bot ? (
             <Link href={`/dashboard/${server.id}`} className={cn(buttonVariants({ variant: "primary" }), "ml-auto")}>
-             <Icons.Plus className={iconVariants({ variant: "button" })} /> Manage
+             <PlusIcon className={iconVariants({ variant: "button" })} /> Manage
             </Link>
            ) : (
             <Link href={`/api/invite/${server.id}`} className={cn(buttonVariants({ variant: "secondary" }), "ml-auto cursor-copy")}>
-             <Icons.Plus className={iconVariants({ variant: "button" })} /> Invite
+             <PlusIcon className={iconVariants({ variant: "button" })} /> Invite
             </Link>
            )}
           </>
@@ -89,16 +101,16 @@ export default async function Page() {
      ) : (
       <div className="flex flex-col items-center justify-center">
        <Header className={cn(headerVariants({ variant: "h1", alignment: "center", margin: "normal" }))}>
-        <Icons.TriangleAlert className={iconVariants({ variant: "extraLarge" })} />
+        <TriangleAlertIcon className={iconVariants({ variant: "extraLarge" })} />
         You don't have any servers!
        </Header>
        <p className="mb-6 text-center text-base text-white/50 md:text-xl">It seems like you're not in any servers that you can manage, try joining a server or creating one.</p>
        <div className="flex flex-wrap justify-center gap-3">
         <Link href="/api/invite" className={cn(buttonVariants({ variant: "primary" }))}>
-         <Icons.Plus className={iconVariants({ variant: "button" })} /> Invite Majo.exe
+         <PlusIcon className={iconVariants({ variant: "button" })} /> Invite Majo.exe
         </Link>
         <Link href="/" className={cn(buttonVariants({ variant: "secondary" }))}>
-         <Icons.Home className={iconVariants({ variant: "button" })} /> Go home
+         <HomeIcon className={iconVariants({ variant: "button" })} /> Go home
         </Link>
        </div>
       </div>
@@ -106,7 +118,7 @@ export default async function Page() {
     </div>
     <div className="my-4 mt-12 flex flex-row flex-wrap items-start whitespace-nowrap rounded-lg border border-accent-primary bg-accent-primary/10 p-4">
      <span className="mr-1 flex flex-row items-center gap-1 whitespace-nowrap font-bold">
-      <Icons.Info className={iconVariants({ variant: "normal", className: "stroke-accent-primary" })} /> Note:
+      <InfoIcon className={iconVariants({ variant: "normal", className: "stroke-accent-primary" })} /> Note:
      </span>
      <span className="whitespace-normal">
       You can only add the bot to servers you have the <code className="inline">Manage Server</code> permission in.

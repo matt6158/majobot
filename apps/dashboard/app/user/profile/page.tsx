@@ -4,6 +4,7 @@ import { ExtendedAPIGuild, getMemberGuilds } from "@majoexe/util/functions/guild
 import { getFlags } from "@majoexe/util/functions/user";
 import { formatNumber } from "@majoexe/util/functions/util";
 import { getSession } from "lib/session";
+import { DownloadIcon, ExternalLinkIcon, ServerIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { DeleteUserData } from "@/app/user/components/DeleteUserData";
@@ -93,8 +94,24 @@ export default async function Page() {
        <div className="ml-[-16px] mt-[-20px] box-content flex items-center rounded-full">
         <Tooltip content="Click to see full size">
          <Link href={`${user.avatar}?size=2048`} target="_blank" className="relative size-24 shrink-0">
-          <Image quality={100} src={`/api/user/avatar/${user.id}`} alt={`${user.global_name || user.username} Avatar`} width={96} height={96} className="rounded-full border-4 border-solid border-background-navbar backdrop-blur-xs duration-200 hover:opacity-75" />
-          {user.avatar_decoration_data ? <Image quality={100} src={`/api/user/avatar-decoration/${user.id}`} alt={`${user.global_name || user.username} Avatar decoration`} width={96} height={96} className="absolute left-0 top-0 rounded-full" /> : null}
+          <Image
+           quality={100}
+           src={`/api/user/avatar/${user.id}`}
+           alt={`${user.global_name || user.username} Avatar`}
+           width={96}
+           height={96}
+           className="rounded-full border-4 border-solid border-background-navbar backdrop-blur-xs duration-200 hover:opacity-75"
+          />
+          {user.avatar_decoration_data ? (
+           <Image
+            quality={100}
+            src={`/api/user/avatar-decoration/${user.id}`}
+            alt={`${user.global_name || user.username} Avatar decoration`}
+            width={96}
+            height={96}
+            className="absolute left-0 top-0 rounded-full"
+           />
+          ) : null}
          </Link>
         </Tooltip>
         <div className="ml-2 flex items-center text-lg font-bold">
@@ -131,7 +148,7 @@ export default async function Page() {
        </div>
        <div className="mb-[-14px] hidden w-full items-end justify-end md:flex">
         <Link href={`https://discord.com/users/${user.id}`} className={cn(buttonVariants({ variant: "primary" }))} target="_blank">
-         <Icons.ExternalLink className={iconVariants({ variant: "button" })} /> Discord profile
+         <ExternalLinkIcon className={iconVariants({ variant: "button" })} /> Discord profile
         </Link>
        </div>
       </div>
@@ -141,7 +158,7 @@ export default async function Page() {
 
     <Block>
      <Header className={cn(headerVariants({ variant: "h2" }))}>
-      <Icons.Server className={iconVariants({ variant: "large", className: "stroke-2!" })} />
+      <ServerIcon className={iconVariants({ variant: "large", className: "stroke-2!" })} />
       Servers
      </Header>
      <p className="mt-2 leading-none text-white/70">A list of servers you are in and some information about them.</p>
@@ -154,7 +171,18 @@ export default async function Page() {
         return (
          <div key={guild.guild.id} className="relative flex justify-between overflow-hidden rounded-lg border border-neutral-800 bg-background-navbar p-4">
           <div className="flex flex-row items-center gap-3">
-           {guild.guild.icon ? <Image src={`https://cdn.discordapp.com/icons/${guild.guild.id}/${guild.guild.icon}.${guild.guild.icon.startsWith("a_") ? "gif" : "png"}`} alt={guild.guild.name} quality={95} width={64} height={64} className="size-14 shrink-0 rounded-full" /> : <div className="size-14 shrink-0 rounded-full bg-button-secondary" />}
+           {guild.guild.icon ? (
+            <Image
+             src={`https://cdn.discordapp.com/icons/${guild.guild.id}/${guild.guild.icon}.${guild.guild.icon.startsWith("a_") ? "gif" : "png"}`}
+             alt={guild.guild.name}
+             quality={95}
+             width={64}
+             height={64}
+             className="size-14 shrink-0 rounded-full"
+            />
+           ) : (
+            <div className="size-14 shrink-0 rounded-full bg-button-secondary" />
+           )}
            <div className="flex flex-col">
             <Header className={cn(headerVariants({ variant: "h4" }))}>{guild.guild.name}</Header>
             <p className="text-sm text-white/70">Server ID: {guild.guild.id}</p>
@@ -185,14 +213,14 @@ export default async function Page() {
 
     <Block>
      <Header className={cn(headerVariants({ variant: "h2" }))}>
-      <Icons.Download className={iconVariants({ variant: "large", className: "stroke-2!" })} />
+      <DownloadIcon className={iconVariants({ variant: "large", className: "stroke-2!" })} />
       Download data
      </Header>
      <p className="mt-2 leading-none text-white/70">
       Download all your data in a <code>.json</code> file. This includes your profile, data from all servers you are in and more.
      </p>
      <Link href="/api/user/download" className={cn(buttonVariants({ variant: "primary" }), "mt-4 w-fit")} target="_blank">
-      <Icons.Download className={iconVariants({ variant: "button" })} />
+      <DownloadIcon className={iconVariants({ variant: "button" })} />
       Download data
      </Link>
     </Block>
